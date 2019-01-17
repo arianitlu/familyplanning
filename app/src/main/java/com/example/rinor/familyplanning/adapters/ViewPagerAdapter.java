@@ -1,4 +1,4 @@
-package com.example.rinor.familyplanning;
+package com.example.rinor.familyplanning.adapters;
 
 import android.content.Context;
 import android.provider.ContactsContract;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.rinor.familyplanning.R;
 
 import org.w3c.dom.Text;
 

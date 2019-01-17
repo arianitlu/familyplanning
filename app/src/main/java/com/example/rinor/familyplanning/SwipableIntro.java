@@ -5,9 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.rinor.familyplanning.adapters.ViewPagerAdapter;
 
 public class SwipableIntro extends AppCompatActivity {
 

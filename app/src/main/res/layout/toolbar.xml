@@ -4,7 +4,6 @@
     android:layout_height="?attr/actionBarSize"
     android:elevation="4dp"
     android:background="@color/colorPrimary"
-    app:popupTheme="@style/CustomPopupTheme"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
