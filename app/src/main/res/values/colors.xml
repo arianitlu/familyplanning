@@ -5,7 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="introbackgorund">#fc3c63</color>
-    <color name="colorTransparentWhite">#cccccc</color>
+    <color name="colorTransparentWhite">#000000</color>
 
 
 </resources>

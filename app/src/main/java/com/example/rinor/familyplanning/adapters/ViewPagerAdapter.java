@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import com.example.rinor.familyplanning.R;
 
-import org.w3c.dom.Text;
-
 public class ViewPagerAdapter extends PagerAdapter {
 
     Context context;
@@ -30,10 +28,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     public String [] introCounter = {"Intro 1","Intro 2","Intro 3","Intro 4"};
 
-
     public String [] introDescription ={"Lorem ipsum dolor sit amet, modus iriure recteque pri cu. Case porro noluisse an est","Lorem ipsum dolor sit amet, modus iriure recteque pri cu. Case porro noluisse an est","Lorem ipsum dolor sit amet, modus iriure recteque pri cu. Case porro noluisse an est","Lorem ipsum dolor sit amet, modus iriure recteque pri cu. Case porro noluisse an est"};
-
-
 
     @Override
     public int getCount() {
@@ -59,7 +54,6 @@ public class ViewPagerAdapter extends PagerAdapter {
         txtIntroNum.setText(introCounter[position]);
 
         txtDescription.setText(introDescription[position]);
-
 
         container.addView(view);
         return view;
