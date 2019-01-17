@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FamilyPlanning</string>
+    <string name="getstartedbutton">Get Started</string>
+    <string name="intro_1">Intro 1</string>
+    <string name="intro_desc">Lorem ipsum dolor sit amet, modus iriure recteque pri cu. Case porro noluisse an est.</string>
+    <string name="german">German</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="farsi">Farsi</string>
+    <string name="french">French</string>
+</resources>
