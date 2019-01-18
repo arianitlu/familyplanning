@@ -1,6 +1,9 @@
 package com.example.rinor.familyplanning.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,9 @@ public class InstitutionAdapter extends RecyclerView.Adapter<InstitutionAdapter.
 
         private List<Institution> listInstitution;
         private Context ctx;
+        Dialog myDialog;
+
+
 
         public InstitutionAdapter(List<Institution> listInstitution, Context ctx) {
             this.listInstitution = listInstitution;
@@ -45,6 +51,19 @@ public class InstitutionAdapter extends RecyclerView.Adapter<InstitutionAdapter.
             public void onClick(View view) {
                 int position = getAdapterPosition();
                 Institution list = listInstitution.get(position);
+                myDialog = new Dialog(ctx);
+                myDialog.setContentView(R.layout.popup_institution_name);
+                ImageView close=view.findViewById(R.id.closeImg);
+               /* close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        myDialog.dismiss();
+                    }
+                });*/
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
+
+
 
 //                Intent intent = new Intent(ctx, ListLocationsDetailsActivity.class);
 //                intent.putExtra("name", list.getName());
@@ -54,6 +73,8 @@ public class InstitutionAdapter extends RecyclerView.Adapter<InstitutionAdapter.
 //                intent.putExtra("longitude",list.getmLongitude());
                 //ctx.startActivity(intent);
             }
+
+
         }
 
 
@@ -85,4 +106,10 @@ public class InstitutionAdapter extends RecyclerView.Adapter<InstitutionAdapter.
     public int getItemCount() {
         return listInstitution.size();
     }
+
+    public void closeImg (View view) {
+        myDialog.dismiss();
+    }
+
+
 }
