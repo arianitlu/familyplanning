@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick (View view) {
 
-        Intent i = new Intent(getApplicationContext(),SwipableIntro.class);
+        Intent i = new Intent(getApplicationContext(),IntroActivity.class);
         startActivity(i);
     }
 }

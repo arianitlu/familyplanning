@@ -2,9 +2,6 @@ package com.example.rinor.familyplanning;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +14,7 @@ import android.view.MenuItem;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-public class NavigationDrawer extends AppCompatActivity
+public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -100,7 +97,7 @@ public class NavigationDrawer extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_help) {
-            Intent intent = new Intent(getApplicationContext(),NavigationDrawer.class);
+            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_map) {
 

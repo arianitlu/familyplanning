@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.rinor.familyplanning.adapters.ViewPagerAdapter;
 
-public class SwipableIntro extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class IntroActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private ViewPager slideView;
     private ViewPagerAdapter slideAdapter;
@@ -124,7 +124,7 @@ public class SwipableIntro extends AppCompatActivity implements PopupMenu.OnMenu
 
     public void showNavMenu(View view){
 
-        Intent i = new Intent(getApplicationContext(),NavigationDrawer.class);
+        Intent i = new Intent(getApplicationContext(),HomeActivity.class);
         startActivity(i);
 
 
