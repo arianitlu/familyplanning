@@ -14,32 +14,30 @@ import android.view.MenuItem;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.example.rinor.familyplanning.fragments.FragmentHelp;
+import com.example.rinor.familyplanning.fragments.MapsFragment;
+
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener
+        ,PopupMenu.OnMenuItemClickListener {
+
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-/*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new FragmentHelp()).commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -55,15 +53,47 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-   @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.language_menu, menu);
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_help) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FragmentHelp()).commit();
+            toolbar.setTitle(getResources().getString(R.string.where_gethelp));
+
+        } else if (id == R.id.nav_map) {
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new MapsFragment()).commit();
+            toolbar.setTitle(getResources().getString(R.string.map));
+
+        } else if (id == R.id.nav_pregnancy) {
+
+
+        } else if (id == R.id.nav_info) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-   @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public void showPopupMain(View view) {
+
+        PopupMenu popupMenu = new PopupMenu(this, view);
+
+        popupMenu.setOnMenuItemClickListener(this);
+
+        popupMenu.inflate(R.menu.language_menu);
+
+        popupMenu.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.german:
                 Toast.makeText(this, "German", Toast.LENGTH_SHORT).show();
@@ -83,48 +113,6 @@ public class HomeActivity extends AppCompatActivity
             default:
                 return false;
         }
-
-
-
-    }
-
-
-
-    @SuppressWarnings("StatementWithEmptyBody")
-   @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_help) {
-            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_map) {
-
-            Intent i = new Intent(getApplicationContext(),MapsActivity.class);
-            startActivity(i);
-
-        } else if (id == R.id.nav_pregnancy) {
-
-
-        } else if (id == R.id.nav_info) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    public void showPopupMain(View view) {
-
-        PopupMenu popupMenu = new PopupMenu(this, view);
-
-        popupMenu.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) getApplicationContext());
-
-        popupMenu.inflate(R.menu.language_menu);
-
-        popupMenu.show();
     }
 
 
