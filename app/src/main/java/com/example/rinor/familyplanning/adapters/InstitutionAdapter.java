@@ -72,12 +72,12 @@ public class InstitutionAdapter extends RecyclerView.Adapter<InstitutionAdapter.
             holder.name.setText(list.getName());
             holder.description.setText(list.getDescription());
 
-            Picasso.get()
-                    .load(list.getImage())
-                    .into(holder.image);
-            Picasso.get()
-                    .load(list.getLogo())
-                    .into(holder.logo);
+//            Picasso.get()
+//                    .load(list.getImage())
+//                    .into(holder.image);
+//            Picasso.get()
+//                    .load(list.getLogo())
+//                    .into(holder.logo);
 
         }
 

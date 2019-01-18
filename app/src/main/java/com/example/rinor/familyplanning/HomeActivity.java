@@ -1,6 +1,5 @@
 package com.example.rinor.familyplanning;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -9,13 +8,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.example.rinor.familyplanning.fragments.FragmentHelp;
-import com.example.rinor.familyplanning.fragments.MapsFragment;
+import com.example.rinor.familyplanning.fragments.FragmentInstitution;
+import com.example.rinor.familyplanning.fragments.FragmentMaps;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
@@ -66,11 +65,13 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_map) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new MapsFragment()).commit();
+                    new FragmentMaps()).commit();
             toolbar.setTitle(getResources().getString(R.string.map));
 
         } else if (id == R.id.nav_pregnancy) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FragmentInstitution()).commit();
+            toolbar.setTitle(getResources().getString(R.string.pregnancy));
 
         } else if (id == R.id.nav_info) {
 

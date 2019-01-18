@@ -26,7 +26,7 @@ public class IntroActivity extends AppCompatActivity implements PopupMenu.OnMenu
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_swipable_intro);
+        setContentView(R.layout.activity_intro);
 
 
         slideView = findViewById(R.id.viewPager);
