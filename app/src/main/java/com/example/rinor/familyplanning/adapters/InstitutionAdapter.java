@@ -1,9 +1,5 @@
 package com.example.rinor.familyplanning.adapters;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,57 +9,42 @@ import android.widget.TextView;
 
 import com.example.rinor.familyplanning.R;
 import com.example.rinor.familyplanning.model.Institution;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class InstitutionAdapter extends RecyclerView.Adapter<InstitutionAdapter.MyViewHolder> {
 
-        private List<Institution> listInstitution;
-        private Context ctx;
-        Dialog myDialog;
+    private List<Institution> listInstitution;
+    private InstitutionClickHandler clickHandler;
 
+    public InstitutionAdapter(List<Institution> listInstitution, InstitutionClickHandler handler) {
+        this.listInstitution = listInstitution;
+        this.clickHandler = handler;
+    }
 
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public InstitutionAdapter(List<Institution> listInstitution, Context ctx) {
-            this.listInstitution = listInstitution;
-            this.ctx = ctx;
-            }
+        public TextView name, description;
+        public ImageView image, logo;
 
-        public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public MyViewHolder(View itemView) {
+            super(itemView);
 
-            public TextView name,description;
-            public ImageView image,logo;
+            itemView.setOnClickListener(this);
 
-            public MyViewHolder(View itemView) {
-                super(itemView);
+            name = itemView.findViewById(R.id.txtName);
+            description = itemView.findViewById(R.id.txtDescription);
 
-                itemView.setOnClickListener(this);
+            image = itemView.findViewById(R.id.imageView);
+            logo = itemView.findViewById(R.id.logo);
+        }
 
-                name = itemView.findViewById(R.id.txtName);
-                description = itemView.findViewById(R.id.txtDescription);
+        @Override
+        public void onClick(View view) {
 
-                image = itemView.findViewById(R.id.imageView);
-                logo = itemView.findViewById(R.id.logo);
-            }
-
-            @Override
-            public void onClick(View view) {
-                int position = getAdapterPosition();
-                Institution list = listInstitution.get(position);
-                myDialog = new Dialog(ctx);
-                myDialog.setContentView(R.layout.popup_institution_name);
-                ImageView close=view.findViewById(R.id.closeImg);
-               /* close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        myDialog.dismiss();
-                    }
-                });*/
-                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                myDialog.show();
-
-
+            int adapterPosition = getAdapterPosition();
+            //long movieId = listInstitution.get(adapterPosition).getId();
+            clickHandler.onClick(adapterPosition);
 
 //                Intent intent = new Intent(ctx, ListLocationsDetailsActivity.class);
 //                intent.putExtra("name", list.getName());
@@ -71,27 +52,26 @@ public class InstitutionAdapter extends RecyclerView.Adapter<InstitutionAdapter.
 //                intent.putExtra("describtion", list.getDescribtion());
 //                intent.putExtra("latitude",list.getmLatitude());
 //                intent.putExtra("longitude",list.getmLongitude());
-                //ctx.startActivity(intent);
-            }
-
-
+            //ctx.startActivity(intent);
         }
 
 
-        @Override
-        public InstitutionAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.institution_item, parent, false);
+    }
 
-            return new MyViewHolder(itemView);
-        }
+    @Override
+    public InstitutionAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.institution_item, parent, false);
 
-        @Override
-        public void onBindViewHolder(InstitutionAdapter.MyViewHolder holder, int position) {
-            Institution list = listInstitution.get(position);
+        return new MyViewHolder(itemView);
+    }
 
-            holder.name.setText(list.getName());
-            holder.description.setText(list.getDescription());
+    @Override
+    public void onBindViewHolder(InstitutionAdapter.MyViewHolder holder, int position) {
+        Institution list = listInstitution.get(position);
+
+        holder.name.setText(list.getName());
+        holder.description.setText(list.getDescription());
 
 //            Picasso.get()
 //                    .load(list.getImage())
@@ -100,16 +80,17 @@ public class InstitutionAdapter extends RecyclerView.Adapter<InstitutionAdapter.
 //                    .load(list.getLogo())
 //                    .into(holder.logo);
 
-        }
+    }
+
+    public interface InstitutionClickHandler {
+        void onClick(int id);
+    }
 
     @Override
     public int getItemCount() {
         return listInstitution.size();
     }
 
-    public void closeImg (View view) {
-        myDialog.dismiss();
-    }
-
 
 }
+
