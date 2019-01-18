@@ -17,7 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".GetStartedSwipe" />
-        <activity android:name=".SwipableIntro"></activity>
+        <activity android:name=".SwipableIntro" />
+        <activity
+            android:name=".NavigationDrawer"
+            android:label="@string/title_activity_navigation_drawer"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
