@@ -19,4 +19,5 @@
     <string name="map">Map</string>
     <string name="pregnancy">Pregnancy advisory</string>
     <string name="general_info">General information</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

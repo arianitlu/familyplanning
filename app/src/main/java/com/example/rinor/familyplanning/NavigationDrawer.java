@@ -104,12 +104,15 @@ public class NavigationDrawer extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_map) {
 
+            Intent i = new Intent(getApplicationContext(),MapsActivity.class);
+            startActivity(i);
+
         } else if (id == R.id.nav_pregnancy) {
 
 
         } else if (id == R.id.nav_info) {
 
-        } 
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
