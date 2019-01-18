@@ -1,6 +1,8 @@
 package com.example.rinor.familyplanning;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,9 @@ public class IntroActivity extends AppCompatActivity implements PopupMenu.OnMenu
     private ViewPagerAdapter slideAdapter;
     private TextView[] mdots;
 
+    SharedPreferences sharedPreferences;
+    String MY_PREF = "my_pref";
+
     private LinearLayout mDotLayout;
 
     @Override
@@ -40,6 +45,21 @@ public class IntroActivity extends AppCompatActivity implements PopupMenu.OnMenu
         addDots(0);
 
         slideView.addOnPageChangeListener(viewListener);
+
+        sharedPreferences = getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
+        if(sharedPreferences.getString("tag","notag").equals("notag")){
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("tag","ok");
+            editor.commit();
+
+        }
+
+        else if(sharedPreferences.getString("tag",null).equals("ok")) {
+            Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 
     @Override
