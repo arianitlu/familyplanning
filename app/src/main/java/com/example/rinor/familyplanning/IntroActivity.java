@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -92,19 +93,37 @@ public class IntroActivity extends AppCompatActivity implements PopupMenu.OnMenu
     }
 
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
+        boolean lastPageChange = false;
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            int lastId = slideAdapter.getCount() -1;
 
+            if (lastPageChange && position == lastId) {
+                Log.e("tag","call");
+            }
         }
 
         @Override
         public void onPageSelected(int position) {
             addDots(position);
+
+
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
+            int lastIdx = slideAdapter.getCount() - 1;
+            int currItem = slideView.getCurrentItem();
 
+            if (currItem == lastIdx && state == 1) {
+                lastPageChange = true;
+                Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+                startActivity(i);
+                finish();
+            }
+            else {
+                lastPageChange = false;
+            }
         }
     };
 
