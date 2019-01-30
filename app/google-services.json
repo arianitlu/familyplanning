@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "198519648921",
+    "firebase_url": "https://familyplanning-9623a.firebaseio.com",
+    "project_id": "familyplanning-9623a",
+    "storage_bucket": "familyplanning-9623a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198519648921:android:aecab664043f3a1a",
+        "android_client_info": {
+          "package_name": "com.example.rinor.familyplanning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198519648921-gtmln1iru76n8dov03n9rnr78to3qoth.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rinor.familyplanning",
+            "certificate_hash": "92668705e2a97d0b6ce49ed736c60758b1bd4a5a"
+          }
+        },
+        {
+          "client_id": "198519648921-5ukspcclpgjubo2rcv4fudpv8soq9iig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw_a49cn-DMwaOv5nM9nnUelt98XnB7d4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198519648921-5ukspcclpgjubo2rcv4fudpv8soq9iig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
