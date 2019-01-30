@@ -21,7 +21,7 @@
             android:id="@+id/heart_1"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@mipmap/ic_launcher"
+            android:background="@drawable/u136"
             tools:layout_editor_absoluteX="25dp"
             tools:layout_editor_absoluteY="16dp" />
 

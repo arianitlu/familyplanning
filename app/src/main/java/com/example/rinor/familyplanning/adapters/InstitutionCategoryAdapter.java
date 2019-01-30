@@ -46,7 +46,7 @@ public class InstitutionCategoryAdapter extends RecyclerView.Adapter<Institution
         InstitutionCategory categories = categoriesList.get(i);
 
         myViewHolder.category.setText(categories.getCategoryName());
-        myViewHolder.image.setImageResource(R.mipmap.ic_launcher);
+        myViewHolder.image.setImageResource(R.drawable.u136);
 
     }
 
