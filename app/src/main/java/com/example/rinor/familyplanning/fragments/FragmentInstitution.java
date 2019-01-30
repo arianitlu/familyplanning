@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ import java.util.List;
 
 public class FragmentInstitution extends Fragment implements InstitutionAdapter.InstitutionClickHandler {
 
+    private static final String URL = "192.168.0.169/familyplanning/readInstitutions.php";
+    private static final String LOGCAT_TAG="InstitutionsList";
     RecyclerView institutionRecyclerView;
     InstitutionAdapter adapter;
     List<Institution> list = new ArrayList<>();
@@ -53,6 +56,7 @@ public class FragmentInstitution extends Fragment implements InstitutionAdapter.
     }
 
     public List<Institution> getInstitutionList(){
+
 
         list.add(new Institution("AdaptivIt","Kompani Programimit",
                 "","","",""));
@@ -92,5 +96,7 @@ public class FragmentInstitution extends Fragment implements InstitutionAdapter.
         txtname.setText(institution.getName());
         txtDescription.setText(institution.getDescription());
     }
+
+   
 }
 
