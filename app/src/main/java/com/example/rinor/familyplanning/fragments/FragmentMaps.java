@@ -43,6 +43,10 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_maps, container, false);
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
             return rootView;
     }
 
@@ -50,12 +54,10 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
         createPointMap(42.669056, 21.161231,
                 "Tophane", colorMarkerNormal);
+
+        goToPointMap(42.669056, 21.161231);
     }
 
     public void callGpsOnTouch() {
