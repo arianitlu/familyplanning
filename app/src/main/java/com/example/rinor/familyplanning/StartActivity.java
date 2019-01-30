@@ -51,4 +51,8 @@ public class StartActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void goToMain(View view) {
+        onBackPressed();
+    }
 }

@@ -1,25 +1,31 @@
 package com.example.rinor.familyplanning.fragments;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.rinor.familyplanning.R;
-import com.example.rinor.familyplanning.model.MapsActivity;
+import com.example.rinor.familyplanning.adapters.InstitutionCategoryAdapter;
+import com.example.rinor.familyplanning.model.Institution;
+import com.example.rinor.familyplanning.model.InstitutionCategory;
 import com.example.rinor.familyplanning.utilities.GPStracker;
+import com.example.rinor.familyplanning.utilities.JsonUtil;
+import com.example.rinor.familyplanning.utilities.MySingleton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,6 +36,12 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -38,6 +50,13 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
     double lonGPS;
     private boolean gpsCalled = false;
     float colorMarkerNormal = BitmapDescriptorFactory.HUE_RED;
+    float colorMarkerGPS = BitmapDescriptorFactory.HUE_AZURE;
+
+    List<Institution> institutionList = new ArrayList<>();
+
+
+    private static final String FAMILY_PLANNING_BASE_URL = "http://192.168.0.169/familyplanning/readInstitutions.php";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,10 +73,13 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        getInstitutionList();
+
+        callGpsOnTouch();
+
         createPointMap(42.669056, 21.161231,
                 "Tophane", colorMarkerNormal);
 
-        goToPointMap(42.669056, 21.161231);
     }
 
     public void callGpsOnTouch() {
@@ -74,7 +96,7 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
                 latGPS = l.getLatitude();
                 lonGPS = l.getLongitude();
 
-                createPointMap(latGPS, lonGPS, "Your location", colorMarkerNormal);
+                createPointMap(latGPS, lonGPS, "Your location", colorMarkerGPS);
             }
         }
 
@@ -91,8 +113,8 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
                 .target(new LatLng(latitude, longitude))
                 .zoom(14)
                 .build();
-        mMap.animateCamera(CameraUpdateFactory
-                .newCameraPosition(position), 4000, null);
+//        mMap.animateCamera(CameraUpdateFactory
+//                .newCameraPosition(position), 4000, null);
         mMap.addMarker(new MarkerOptions()
                 .position(location)
                 .title(title)
@@ -112,6 +134,40 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
                 .build();
         mMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(position), 4000, null);
+    }
+
+    public void getInstitutionList(){
+
+        Uri baseUri = Uri.parse(FAMILY_PLANNING_BASE_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, uriBuilder.toString(), null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            institutionList = JsonUtil.extractAllInstitutions(response);
+                            for (int i = 0; i < institutionList.size(); i++) {
+                                createPointMap(institutionList.get(i).getLat(), institutionList.get(i).getLng(),
+                                        institutionList.get(i).getName(), colorMarkerNormal);
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
 

@@ -41,7 +41,7 @@ public final class JsonUtil {
         return institutionCategoriesList;
     }
 
-    public static List<Institution> extractInstitutionsByCategory(JSONObject responseObject) throws JSONException {
+    public static List<Institution> extractAllInstitutions(JSONObject responseObject) throws JSONException {
 
         List<Institution> institutionList = new ArrayList<>();
 

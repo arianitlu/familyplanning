@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.rinor.familyplanning.fragments.FragmentHelp;
 import com.example.rinor.familyplanning.fragments.FragmentInstitution;
 import com.example.rinor.familyplanning.fragments.FragmentMaps;
-import com.example.rinor.familyplanning.model.MapsActivity;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
@@ -75,8 +74,7 @@ public class HomeActivity extends AppCompatActivity
             toolbar.setTitle(getResources().getString(R.string.pregnancy));
 
         } else if (id == R.id.nav_info) {
-            Intent i = new Intent(getApplicationContext(),MapsActivity.class);
-            startActivity(i);
+
 
         }else if (id == R.id.nav_chat) {
             Intent i = new Intent(getApplicationContext(),StartActivity.class);
