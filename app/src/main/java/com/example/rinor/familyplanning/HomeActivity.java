@@ -65,7 +65,6 @@ public class HomeActivity extends AppCompatActivity
             toolbar.setTitle(getResources().getString(R.string.where_gethelp));
 
         } else if (id == R.id.nav_map) {
-
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new FragmentMaps()).commit();
             toolbar.setTitle(getResources().getString(R.string.map));
@@ -76,9 +75,11 @@ public class HomeActivity extends AppCompatActivity
             toolbar.setTitle(getResources().getString(R.string.pregnancy));
 
         } else if (id == R.id.nav_info) {
-            //test
-
             Intent i = new Intent(getApplicationContext(),MapsActivity.class);
+            startActivity(i);
+
+        }else if (id == R.id.nav_chat) {
+            Intent i = new Intent(getApplicationContext(),StartActivity.class);
             startActivity(i);
 
         }

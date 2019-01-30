@@ -58,17 +58,20 @@ public class FragmentInstitution extends Fragment implements InstitutionAdapter.
     public List<Institution> getInstitutionList(){
 
 
-        list.add(new Institution("AdaptivIt","Kompani Programimit",
-                "","","",""));
+        list.add(new Institution(1,"Kompani Programimit",
+                "","","",1,2,"",""));
 
-        list.add(new Institution("Qeveria Kosoves","Kompani Programimit",
-                "","","",""));
+        list.add(new Institution(1,"Kompani Programimit",
+                "","","",1,2,"",""));
 
-        list.add(new Institution("Gjykata   ","Kompani Programimit",
-                "","","",""));
+        list.add(new Institution(1,"Kompani Programimit",
+                "","","",1,2,"",""));
 
-        list.add(new Institution("ATK","Kompani Programimit",
-                "","","",""));
+        list.add(new Institution(1,"Kompani Programimit",
+                "","","",1,2,"",""));
+
+        list.add(new Institution(1,"Kompani Programimit",
+                "","","",1,2,"",""));
 
         return list;
     }
