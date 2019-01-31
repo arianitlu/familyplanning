@@ -2,6 +2,7 @@ package com.example.rinor.familyplanning.utilities;
 
 import com.example.rinor.familyplanning.model.Institution;
 import com.example.rinor.familyplanning.model.InstitutionCategory;
+import com.example.rinor.familyplanning.model.Language;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,5 +68,29 @@ public final class JsonUtil {
         }
 
         return institutionList;
+    }
+
+    public static List<Language> extractAllLanguages(JSONObject responseObject) throws JSONException {
+
+        List<Language> languagesList = new ArrayList<>();
+
+        JSONArray dataArray = responseObject.getJSONArray("data");
+
+        for(int i = 0; i < dataArray.length(); i++){
+
+            JSONObject dataObj = dataArray.getJSONObject(i);
+
+            int id = dataObj.getInt("ID");
+            String languageName = dataObj.getString("LanguageName");
+            String languageIso = dataObj.getString("LanguageIso");
+            String description = dataObj.getString("Description");
+            String languageFlag = dataObj.getString("LanguageFlag");
+
+            Language language = new Language(id,languageName,languageIso,description,languageFlag);
+
+            languagesList.add(language);
+        }
+
+        return languagesList;
     }
 }
