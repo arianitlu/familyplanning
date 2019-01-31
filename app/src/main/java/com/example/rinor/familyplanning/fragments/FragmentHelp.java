@@ -1,5 +1,7 @@
 package com.example.rinor.familyplanning.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,6 +36,9 @@ public class FragmentHelp extends Fragment {
     InstitutionCategoryAdapter adapter;
     List<InstitutionCategory> categoryList = new ArrayList<>();
 
+    SharedPreferences sharedPreferences;
+    String MY_PREF = "PREFERENCE";
+
     private static final String FAMILY_PLANNING_BASE_URL = "http://192.168.0.169/familyplanning/readInstitutionsCategory.php";
 
 
@@ -44,16 +49,22 @@ public class FragmentHelp extends Fragment {
 
         recyclerView =view.findViewById(R.id.recycler_view_categories);
 
-        getInstitutionsCategory();
+        sharedPreferences = getActivity().getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
+        int languageId = sharedPreferences.getInt("languageId",0);
+
+        Toast.makeText(getContext(), "LanguageId: " + languageId, Toast.LENGTH_SHORT).show();
+
+        getInstitutionsCategory(languageId);
 
         return view;
 
     }
 
-    public void getInstitutionsCategory(){
+    public void getInstitutionsCategory(int languageId){
 
         Uri baseUri = Uri.parse(FAMILY_PLANNING_BASE_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
+        uriBuilder.appendQueryParameter("languageID", String.valueOf(languageId));
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, uriBuilder.toString(), null, new Response.Listener<JSONObject>() {

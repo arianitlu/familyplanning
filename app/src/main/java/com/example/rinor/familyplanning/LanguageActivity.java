@@ -44,6 +44,7 @@ public class LanguageActivity extends AppCompatActivity {
     Locale locale;
 
     SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     String MY_PREF = "PREFERENCE";
 
     private static final String LANGUAGE_BASE_URL = "http://192.168.0.169/familyplanning/readLanguages.php";
@@ -56,6 +57,10 @@ public class LanguageActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_language);
 
         sharedPreferences = getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        String languageToLoad = sharedPreferences.getString("languageToLoad","sq");
+        languageToLoad(languageToLoad);
 
         if (sharedPreferences.getBoolean("isCalled",false)){
             startActivity(new Intent(LanguageActivity.this,SplashScreen.class));
@@ -67,23 +72,41 @@ public class LanguageActivity extends AppCompatActivity {
                                 public void onItemClick(View view, int position) {
                                     switch (position) {
                                         case 0:
-                                            locale = new Locale("sq");
+                                            editor.putInt("languageId",position);
+                                            editor.putBoolean("isCalled",true);
+                                            languageToLoad("sq");
                                             break;
                                         case 1:
-                                            locale = new Locale("en");
+                                            editor.putInt("languageId",2);
+                                            editor.putBoolean("isCalled",true);
+                                            languageToLoad("en");
+                                            break;
+                                        case 2:
+                                            editor.putInt("languageId",3);
+                                            editor.putBoolean("isCalled",true);
+                                            languageToLoad("sq");
+                                            break;
+                                        case 3:
+                                            editor.putInt("languageId",7);
+                                            editor.putBoolean("isCalled",true);
+                                            languageToLoad("sq");
+                                            break;
+                                        case 4:
+                                            editor.putInt("languageId",8);
+                                            editor.putBoolean("isCalled",true);
+                                            languageToLoad("sq");
+                                            break;
+                                        case 5:
+                                            editor.putInt("languageId",9);
+                                            editor.putBoolean("isCalled",true);
+                                            languageToLoad("sq");
+                                            break;
+                                        case 6:
+                                            editor.putInt("languageId",10);
+                                            editor.putBoolean("isCalled",true);
+                                            languageToLoad("sq");
                                             break;
                                     }
-
-                                    sharedPreferences = getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putBoolean("isCalled",true);
-                                    editor.commit();
-
-                                    Locale.setDefault(locale);
-                                    Configuration config = getBaseContext().getResources().getConfiguration();
-                                    config.locale = locale;
-                                    getBaseContext().getResources().updateConfiguration(config,
-                                            getBaseContext().getResources().getDisplayMetrics());
 
                                     startActivity(new Intent(LanguageActivity.this, SplashScreen.class));
                                 }
@@ -175,5 +198,17 @@ public class LanguageActivity extends AppCompatActivity {
         public void onRequestDisallowInterceptTouchEvent (boolean disallowIntercept){}
     }
 
+    public void languageToLoad(String language){
+
+        locale = new Locale(language);
+        Locale.setDefault(locale);
+        editor.putString("languageToLoad",language);
+        editor.commit();
+
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+    }
 
 }
