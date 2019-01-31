@@ -23,4 +23,9 @@
     <string name="title_activity_maps">Map</string>
     <string name="institution_name">Institution Name</string>
     <string name="select">Select your language</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot your password ?</string>
+    <string name="create_new_account">Create a new account</string>
+    <string name="register">Register</string>
+    <string name="password_reset">By clicking RESET you will receive an email to reset your passwrod</string>
 </resources>

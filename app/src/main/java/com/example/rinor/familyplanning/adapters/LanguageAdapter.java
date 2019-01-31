@@ -1,6 +1,8 @@
 package com.example.rinor.familyplanning.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rinor.familyplanning.R;
 import com.example.rinor.familyplanning.model.Language;
@@ -19,6 +22,9 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.MyView
 
     private List<Language> languageList;
     private Context mContext;
+    private Activity act;
+    String MY_PREF = "my_pref";
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView language_icon;
@@ -28,6 +34,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.MyView
             super(itemView);
             language_icon = itemView.findViewById(R.id.language_imageview);
             language_text = itemView.findViewById(R.id.language_text);
+
         }
     }
 
