@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">FamilyPlanning</string>
+    <string name="getstartedbutton">Fillo</string>
+    <string name="intro_1">Hyrje 1</string>
+    <string name="intro_desc">Kosova Republike Kosova Republike Kosova Republike Kosova Republike</string>
+    <string name="german">Gjermanisht</string>
+    <string name="english">Anglisht</string>
+    <string name="arabic">Arabisht</string>
+    <string name="farsi">Farsi</string>
+    <string name="french">Frengjisht</string>
+    <string name="title_activity_navigation_drawer">Family Planning</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Konfigurimet</string>
+    <string name="where_gethelp">Kerko ndihme?</string>
+    <string name="map">Harta</string>
+    <string name="pregnancy">Keshillat per shtatezani</string>
+    <string name="general_info">Informata</string>
+    <string name="chat">Bisede</string>
+    <string name="title_activity_maps">Harta</string>
+    <string name="institution_name">Emri i institucionit</string>
+    <string name="select">Zgjedhni gjuhen</string>
+    <string name="login">Kyqu</string>
+    <string name="forgot_password">Keni harruar fjalekalimin ?</string>
+    <string name="create_new_account">Krijo nje llogari</string>
+    <string name="register">Regjistrohu</string>
+    <string name="password_reset">Klikoni reset, do te pranoni nje email per konfigurim te fjalekalimit</string>
+</resources>

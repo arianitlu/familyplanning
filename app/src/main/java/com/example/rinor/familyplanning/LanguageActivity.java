@@ -39,10 +39,12 @@ public class LanguageActivity extends AppCompatActivity {
     LanguageAdapter languageAdapter;
     List<Language> languages = new ArrayList<>();
 
-    SharedPreferences sharedPreferences;
-    String MY_PREF = "my_pref";
-
     private boolean calledOnce = false;
+
+    Locale locale;
+
+    SharedPreferences sharedPreferences;
+    String MY_PREF = "PREFERENCE";
 
     private static final String LANGUAGE_BASE_URL = "http://192.168.0.169/familyplanning/readLanguages.php";
 
@@ -53,33 +55,48 @@ public class LanguageActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view_language);
 
-        recyclerView.addOnItemTouchListener(
-                new LanguageActivity.RecyclerItemClickListener(getApplicationContext(), recyclerView,
-                        new FragmentInstitution.RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
+        sharedPreferences = getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
 
-                        sharedPreferences = getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt("language",position);
-                        editor.commit();
+        if (sharedPreferences.getBoolean("isCalled",false)){
+            startActivity(new Intent(LanguageActivity.this,SplashScreen.class));
+        }else {
+            recyclerView.addOnItemTouchListener(
+                    new LanguageActivity.RecyclerItemClickListener(getApplicationContext(), recyclerView,
+                            new FragmentInstitution.RecyclerItemClickListener.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(View view, int position) {
+                                    switch (position) {
+                                        case 0:
+                                            locale = new Locale("sq");
+                                            break;
+                                        case 1:
+                                            locale = new Locale("en");
+                                            break;
+                                    }
 
-                        switch (position){
-                            case 0: languageToLoad("sq");
-                            break;
-                            case 1: languageToLoad("en");
-                            break;
-                            default: languageToLoad("en");
-                            break;
-                        }
-                        restartApp();
-                    }
+                                    sharedPreferences = getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putBoolean("isCalled",true);
+                                    editor.commit();
 
-                    @Override public void onLongItemClick(View view, int position) {
-                    }
-                })
-        );
+                                    Locale.setDefault(locale);
+                                    Configuration config = getBaseContext().getResources().getConfiguration();
+                                    config.locale = locale;
+                                    getBaseContext().getResources().updateConfiguration(config,
+                                            getBaseContext().getResources().getDisplayMetrics());
 
-        getLanguages();
+                                    startActivity(new Intent(LanguageActivity.this, SplashScreen.class));
+                                }
+
+                                @Override
+                                public void onLongItemClick(View view, int position) {
+                                }
+                            })
+            );
+
+            getLanguages();
+        }
+
     }
 
     public void getLanguages(){
@@ -158,36 +175,5 @@ public class LanguageActivity extends AppCompatActivity {
         public void onRequestDisallowInterceptTouchEvent (boolean disallowIntercept){}
     }
 
-    public void languageToLoad(String languageToLoad) {
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-
-        saveLocale(languageToLoad);
-
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-    }
-
-    public void saveLocale(String lang) {
-        String langPref = "Language";
-
-        SharedPreferences prefs = getSharedPreferences("CommonLanguage",
-                Activity.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(langPref, lang);
-        editor.commit();
-    }
-
-    public void restartApp() {
-        Intent i = getBaseContext().getPackageManager()
-                .getLaunchIntentForPackage(getBaseContext().getPackageName());
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-
-        startActivity(new Intent(LanguageActivity.this,SplashScreen.class));
-    }
 
 }
