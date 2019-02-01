@@ -3,6 +3,7 @@ package com.example.rinor.familyplanning.fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -40,6 +41,7 @@ import java.util.List;
 public class FragmentInstitution extends Fragment {
 
     private static final String FAMILY_PLANNING_BASE_URL = "http://192.168.0.169/familyplanning/readInstitutions.php";
+    public static final String FAMILY_PLANNING_INSTITUTION_BY = "http://192.168.0.169/familyplanning/readInstitutionsByCategory.php";
 
     RecyclerView institutionRecyclerView;
     InstitutionAdapter adapter;
@@ -51,6 +53,10 @@ public class FragmentInstitution extends Fragment {
     Dialog myDialog;
 
     TextView txtname, txtDescription, txtServices, txtWeb;
+
+    SharedPreferences sharedPreferences;
+    String MY_PREF = "PREFERENCE";
+    SharedPreferences.Editor editor;
 
     @Nullable
     @Override
@@ -67,14 +73,19 @@ public class FragmentInstitution extends Fragment {
 
         institutionRecyclerView = view.findViewById(R.id.recyclerview_instutiton);
 
-        getInstitutionList();
+        sharedPreferences = getActivity().getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        int languageID = sharedPreferences.getInt("languageId",0);
+        int category = sharedPreferences.getInt("category",0);
+
+        getInstitutionList(0,1);
 
         myDialog.setCanceledOnTouchOutside(true);
 
         institutionRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), institutionRecyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        getInstitutionListById(position);
+                        getInstitutionListById(0,1,position);
                         myDialog.show();
                     }
 
@@ -86,29 +97,26 @@ public class FragmentInstitution extends Fragment {
         return view;
     }
 
-    public void getInstitutionList() {
+    public void getInstitutionList(int languageID, int category) {
 
-        Uri baseUri = Uri.parse(FAMILY_PLANNING_BASE_URL);
+        Uri baseUri = Uri.parse(FAMILY_PLANNING_INSTITUTION_BY);
         Uri.Builder uriBuilder = baseUri.buildUpon();
+        uriBuilder.appendQueryParameter("category", String.valueOf(category));
+        uriBuilder.appendQueryParameter("languageID", String.valueOf(languageID));
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, uriBuilder.toString(), null, new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             institutionList = JsonUtil.extractAllInstitutions(response);
-                            institutionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                             adapter = new InstitutionAdapter(institutionList);
+                            institutionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                             institutionRecyclerView.setAdapter(adapter);
-
-                            String name = institutionList.get(0).getName();
-                            txtname.setText(name);
-                            txtDescription.setText(name);
-
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 }, new Response.ErrorListener() {
 
@@ -122,10 +130,12 @@ public class FragmentInstitution extends Fragment {
         MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
-    public void getInstitutionListById(final int id) {
+    public void getInstitutionListById(int languageID, int category, final int id) {
 
-        Uri baseUri = Uri.parse(FAMILY_PLANNING_BASE_URL);
+        Uri baseUri = Uri.parse(FAMILY_PLANNING_INSTITUTION_BY);
         Uri.Builder uriBuilder = baseUri.buildUpon();
+        uriBuilder.appendQueryParameter("category", String.valueOf(category));
+        uriBuilder.appendQueryParameter("languageID", String.valueOf(languageID));
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, uriBuilder.toString(), null, new Response.Listener<JSONObject>() {

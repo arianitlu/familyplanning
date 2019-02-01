@@ -74,8 +74,9 @@ public class HomeActivity extends AppCompatActivity
             toolbar.setTitle(getResources().getString(R.string.pregnancy));
 
         } else if (id == R.id.nav_info) {
-
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FragmentInstitution()).commit();
+            toolbar.setTitle(getResources().getString(R.string.pregnancy));
         }else if (id == R.id.nav_chat) {
             Intent i = new Intent(getApplicationContext(),StartActivity.class);
             startActivity(i);

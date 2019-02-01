@@ -7,12 +7,12 @@ public class Institution {
     private String description;
     private String image;
     private String logo;
-    private int lat;
-    private int lng;
+    private double lat;
+    private double lng;
     private String services;
     private String website;
 
-    public Institution(int id, String name, String description, String image, String logo, int lat, int lng, String services, String website) {
+    public Institution(int id, String name, String description, String image, String logo, double lat, double lng, String services, String website) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -64,19 +64,19 @@ public class Institution {
         this.logo = logo;
     }
 
-    public int getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(int lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public int getLng() {
+    public double getLng() {
         return lng;
     }
 
-    public void setLng(int lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 

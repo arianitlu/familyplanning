@@ -57,8 +57,8 @@ public final class JsonUtil {
             String description = dataObj.getString("Description");
             String image = dataObj.getString("Photo");
             String logo = dataObj.getString("Icon");
-            int lat = dataObj.getInt("Lat");
-            int lng = dataObj.getInt("Lng");
+            double lat = dataObj.getInt("Lat");
+            double lng = dataObj.getInt("Lng");
             String website = dataObj.getString("Website");
             String services = dataObj.getString("Services");
 

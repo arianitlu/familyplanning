@@ -9,7 +9,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -18,6 +21,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.rinor.familyplanning.HomeActivity;
+import com.example.rinor.familyplanning.LanguageActivity;
 import com.example.rinor.familyplanning.R;
 import com.example.rinor.familyplanning.adapters.InstitutionCategoryAdapter;
 import com.example.rinor.familyplanning.model.InstitutionCategory;
@@ -38,6 +43,7 @@ public class FragmentHelp extends Fragment {
 
     SharedPreferences sharedPreferences;
     String MY_PREF = "PREFERENCE";
+    SharedPreferences.Editor editor;
 
     private static final String FAMILY_PLANNING_BASE_URL = "http://192.168.0.169/familyplanning/readInstitutionsCategory.php";
 
@@ -50,11 +56,28 @@ public class FragmentHelp extends Fragment {
         recyclerView =view.findViewById(R.id.recycler_view_categories);
 
         sharedPreferences = getActivity().getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         int languageId = sharedPreferences.getInt("languageId",0);
 
-        Toast.makeText(getContext(), "LanguageId: " + languageId, Toast.LENGTH_SHORT).show();
-
         getInstitutionsCategory(languageId);
+
+        recyclerView.addOnItemTouchListener(
+                new FragmentInstitution.RecyclerItemClickListener(getContext(), recyclerView ,
+                        new FragmentInstitution.RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        editor.putInt("category",categoryList.get(position).getID());
+
+                        FragmentInstitution fragmentInstitution= new FragmentInstitution();
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, fragmentInstitution, "findThisFragment")
+                                .addToBackStack(null)
+                                .commit();
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                    }
+                })
+        );
 
         return view;
 
@@ -93,4 +116,49 @@ public class FragmentHelp extends Fragment {
 
         MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
+
+    public static class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+        private FragmentInstitution.RecyclerItemClickListener.OnItemClickListener mListener;
+
+        public interface OnItemClickListener {
+            public void onItemClick(View view, int position);
+
+            public void onLongItemClick(View view, int position);
+        }
+
+        GestureDetector mGestureDetector;
+
+        public RecyclerItemClickListener(Context context, final RecyclerView recyclerView, FragmentInstitution.RecyclerItemClickListener.OnItemClickListener listener) {
+            mListener = listener;
+            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && mListener != null) {
+                        mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+            View childView = view.findChildViewUnder(e.getX(), e.getY());
+            if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+                mListener.onItemClick(childView, view.getChildAdapterPosition(childView));
+                return true;
+            }
+            return false;
+        }
+
+        @Override public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) { }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent (boolean disallowIntercept){}
+    }
+
 }
