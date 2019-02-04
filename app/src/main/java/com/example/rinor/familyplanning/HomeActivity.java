@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rinor.familyplanning.fragments.FragmentHelp;
@@ -35,15 +36,24 @@ public class HomeActivity extends AppCompatActivity
     SharedPreferences.Editor editor;
     String MY_PREF = "PREFERENCE";
 
+    TextView txt_iso_language;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        txt_iso_language = findViewById(R.id.txt_toolbar_language);
+
         sharedPreferences = getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        String languageToLoad = sharedPreferences.getString("languageToLoad","EN");
+
+        txt_iso_language.setText(languageToLoad);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -152,6 +162,8 @@ public class HomeActivity extends AppCompatActivity
 
         editor.putString("languageToLoad",language);
         editor.commit();
+
+        txt_iso_language.setText(language);
 
         Configuration config = getBaseContext().getResources().getConfiguration();
         config.locale = locale;

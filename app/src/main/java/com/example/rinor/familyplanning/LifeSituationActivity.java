@@ -42,6 +42,10 @@ public class LifeSituationActivity extends AppCompatActivity {
 
     List<LifeSituation> situationList;
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    String MY_PREF = "PREFERENCE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,15 +59,20 @@ public class LifeSituationActivity extends AppCompatActivity {
 
         situationRecyclerView = findViewById(R.id.lifesituationlist);
 
-        getLifeSituationList();
+        sharedPreferences = getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
 
+        int languageId = sharedPreferences.getInt("languageId",0);
+
+        getLifeSituationList(2);
 
     }
 
-    private void getLifeSituationList() {
+    private void getLifeSituationList(int languageId) {
 
         Uri baseUri = Uri.parse(LIFE_SITUATION_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
+        uriBuilder.appendQueryParameter("languageID", String.valueOf(languageId));
+
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, uriBuilder.toString(),
                 null, new Response.Listener<JSONObject>() {

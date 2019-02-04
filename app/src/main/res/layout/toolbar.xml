@@ -1,4 +1,4 @@
-<android.support.v7.widget.Toolbar
+<android.support.v7.widget.Toolbar xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
@@ -19,16 +19,6 @@
             android:src="@drawable/u20"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/toolbar_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/toolbar_image"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
