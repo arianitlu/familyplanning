@@ -9,6 +9,13 @@ public class LifeSituation {
     private int institutionCategory;
     private int statusi;
 
+    public LifeSituation(int id, String lifeSituationName, int languageID, int statusi) {
+        this.id = id;
+        this.lifeSituationName = lifeSituationName;
+        this.languageID = languageID;
+        this.statusi = statusi;
+    }
+
     public LifeSituation(int id, String lifeSituationName, int languageID, int institutionCategory, int statusi) {
         this.id = id;
         this.lifeSituationName = lifeSituationName;

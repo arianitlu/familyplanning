@@ -109,10 +109,10 @@ public final class JsonUtil {
             String lifeSituationName = dataObj.getString("LifeSituationName");
             //String icon = dataObj.getString("Icon");
             int languageID = dataObj.getInt("LanguageID");
-            int institutionCategory = dataObj.getInt("InstitutionCategory");
+            //int institutionCategory = dataObj.getInt("InstitutionCategory");
             int statusi = dataObj.getInt("Statusi");
 
-            LifeSituation lifeSituation = new LifeSituation(id, lifeSituationName, languageID, institutionCategory, statusi);
+            LifeSituation lifeSituation = new LifeSituation(id, lifeSituationName, languageID, statusi);
 
             lifeSituationList.add(lifeSituation);
         }

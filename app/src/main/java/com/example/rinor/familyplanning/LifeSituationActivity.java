@@ -1,5 +1,8 @@
 package com.example.rinor.familyplanning;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +10,10 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -15,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.rinor.familyplanning.adapters.InstitutionAdapter;
 import com.example.rinor.familyplanning.adapters.LifeSituationAdapter;
+import com.example.rinor.familyplanning.fragments.FragmentInstitution;
 import com.example.rinor.familyplanning.model.LifeSituation;
 import com.example.rinor.familyplanning.utilities.JsonUtil;
 import com.example.rinor.familyplanning.utilities.MySingleton;
@@ -39,11 +47,16 @@ public class LifeSituationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_life_situation);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Life Situation");
+
         situationList = new ArrayList<>();
 
         situationRecyclerView = findViewById(R.id.lifesituationlist);
 
         getLifeSituationList();
+
 
     }
 
@@ -58,8 +71,8 @@ public class LifeSituationActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     situationList = JsonUtil.extractAllLifeSituation(response);
-                    adapter = new LifeSituationAdapter(situationList);
-                    situationRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),3));
+                    adapter = new LifeSituationAdapter(situationList,getApplicationContext());
+                    situationRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     situationRecyclerView.setItemAnimator(new DefaultItemAnimator());
                     situationRecyclerView.setAdapter(adapter);
 
@@ -82,6 +95,7 @@ public class LifeSituationActivity extends AppCompatActivity {
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
 
     }
+
 }
 
 

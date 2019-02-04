@@ -1,6 +1,7 @@
 package com.example.rinor.familyplanning.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -58,8 +59,9 @@ public class FragmentHelp extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         int languageId = sharedPreferences.getInt("languageId",0);
+        int lifeSituationId = sharedPreferences.getInt("lifeSituationId",0);
 
-        getInstitutionsCategory(languageId);
+        getInstitutionsCategory(languageId,lifeSituationId);
 
         recyclerView.addOnItemTouchListener(
                 new FragmentInstitution.RecyclerItemClickListener(getContext(), recyclerView ,
@@ -85,11 +87,13 @@ public class FragmentHelp extends Fragment {
 
     }
 
-    public void getInstitutionsCategory(int languageId){
+    public void getInstitutionsCategory(int languageId,int lifeSituation){
 
         Uri baseUri = Uri.parse(FAMILY_PLANNING_BASE_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
         uriBuilder.appendQueryParameter("languageID", String.valueOf(languageId));
+        uriBuilder.appendQueryParameter("lifeSituation", String.valueOf(lifeSituation));
+
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, uriBuilder.toString(), null, new Response.Listener<JSONObject>() {

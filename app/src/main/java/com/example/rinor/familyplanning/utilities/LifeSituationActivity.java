@@ -60,7 +60,7 @@ public class LifeSituationActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     situationList = JsonUtil.extractAllLifeSituation(response);
-                    adapter = new LifeSituationAdapter(situationList);
+                    adapter = new LifeSituationAdapter(situationList,getApplicationContext());
                     situationRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),3));
                     situationRecyclerView.setItemAnimator(new DefaultItemAnimator());
                     situationRecyclerView.setAdapter(adapter);
