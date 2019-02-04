@@ -58,6 +58,9 @@ public class FragmentInstitution extends Fragment {
     String MY_PREF = "PREFERENCE";
     SharedPreferences.Editor editor;
 
+    int languageID;
+    int category;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -75,17 +78,21 @@ public class FragmentInstitution extends Fragment {
 
         sharedPreferences = getActivity().getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        int languageID = sharedPreferences.getInt("languageId",0);
-        int category = sharedPreferences.getInt("category",0);
 
-        getInstitutionList(0,1);
+        languageID = sharedPreferences.getInt("languageId",0);
+        category = sharedPreferences.getInt("category",0);
+
+        Toast.makeText(getContext(), "LanguageId: " + languageID + "--Category: " + category, Toast.LENGTH_LONG).show();
+
+        getInstitutionList(category,languageID);
+        //getInstitutionList();
 
         myDialog.setCanceledOnTouchOutside(true);
 
         institutionRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), institutionRecyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        getInstitutionListById(0,1,position);
+                        getInstitutionListById(languageID,1,position);
                         myDialog.show();
                     }
 
@@ -97,12 +104,43 @@ public class FragmentInstitution extends Fragment {
         return view;
     }
 
-    public void getInstitutionList(int languageID, int category) {
+    public void getInstitutionList() {
+
+        Uri baseUri = Uri.parse(FAMILY_PLANNING_BASE_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, uriBuilder.toString(), null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            institutionList = JsonUtil.extractAllInstitutions(response);
+                            adapter = new InstitutionAdapter(institutionList);
+                            institutionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                            institutionRecyclerView.setAdapter(adapter);
+                        } catch (JSONException e) {
+                            Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    public void getInstitutionList(int category, int languageId) {
 
         Uri baseUri = Uri.parse(FAMILY_PLANNING_INSTITUTION_BY);
         Uri.Builder uriBuilder = baseUri.buildUpon();
         uriBuilder.appendQueryParameter("category", String.valueOf(category));
-        uriBuilder.appendQueryParameter("languageID", String.valueOf(languageID));
+        uriBuilder.appendQueryParameter("languageID", String.valueOf(languageId));
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, uriBuilder.toString(), null, new Response.Listener<JSONObject>() {

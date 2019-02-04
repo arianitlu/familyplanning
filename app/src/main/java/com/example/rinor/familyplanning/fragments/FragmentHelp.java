@@ -65,7 +65,9 @@ public class FragmentHelp extends Fragment {
                 new FragmentInstitution.RecyclerItemClickListener(getContext(), recyclerView ,
                         new FragmentInstitution.RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
+
                         editor.putInt("category",categoryList.get(position).getID());
+                        editor.commit();
 
                         FragmentInstitution fragmentInstitution= new FragmentInstitution();
                         getActivity().getSupportFragmentManager().beginTransaction()

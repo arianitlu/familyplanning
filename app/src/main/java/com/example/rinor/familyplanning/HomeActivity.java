@@ -1,6 +1,10 @@
 package com.example.rinor.familyplanning;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,11 +22,18 @@ import com.example.rinor.familyplanning.fragments.FragmentInstitution;
 import com.example.rinor.familyplanning.fragments.FragmentMaps;
 import com.example.rinor.familyplanning.utilities.LifeSituationActivity;
 
+import java.util.Locale;
+
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
         ,PopupMenu.OnMenuItemClickListener {
 
     Toolbar toolbar;
+    Locale locale;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    String MY_PREF = "PREFERENCE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +41,9 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_navigation_drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        sharedPreferences = getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -106,28 +120,47 @@ public class HomeActivity extends AppCompatActivity
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.german:
-                Toast.makeText(this, "German", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Albanian", Toast.LENGTH_SHORT).show();
+                editor.putInt("languageId",0);
+                languageToLoad("sq");
                 return true;
             case R.id.english:
                 Toast.makeText(this, "English", Toast.LENGTH_SHORT).show();
+                editor.putInt("languageId",2);
+                languageToLoad("en");
                 return true;
             case R.id.arabic:
                 Toast.makeText(this, "Arabic", Toast.LENGTH_SHORT).show();
+                languageToLoad("en");
                 return true;
             case R.id.farsi:
                 Toast.makeText(this, "Farsi", Toast.LENGTH_SHORT).show();
+                languageToLoad("en");
                 return true;
             case R.id.french:
                 Toast.makeText(this, "French", Toast.LENGTH_SHORT).show();
+                languageToLoad("en");
                 return true;
             default:
                 return false;
         }
     }
 
+    public void languageToLoad(String language){
+        locale = new Locale(language);
+        Locale.setDefault(locale);
 
-/*
-    public boolean onMenuItemClick(MenuItem item) {
+        editor.putString("languageToLoad",language);
+        editor.commit();
 
-    }*/
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+
+    }
 }

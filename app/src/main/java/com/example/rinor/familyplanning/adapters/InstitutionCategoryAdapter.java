@@ -22,9 +22,6 @@ public class InstitutionCategoryAdapter extends RecyclerView.Adapter<Institution
         public ImageView image;
 
 
-
-
-
         public MyViewHolder(View view) {
             super(view);
             category = view.findViewById(R.id.textView);

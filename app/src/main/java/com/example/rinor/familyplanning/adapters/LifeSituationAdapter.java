@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.rinor.familyplanning.R;
 import com.example.rinor.familyplanning.model.LifeSituation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LifeSituationAdapter extends RecyclerView.Adapter<LifeSituationAdapter.MyViewHolder> {
@@ -35,10 +36,6 @@ public class LifeSituationAdapter extends RecyclerView.Adapter<LifeSituationAdap
         }
     }
 
-
-
-
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,7 +50,7 @@ public class LifeSituationAdapter extends RecyclerView.Adapter<LifeSituationAdap
         LifeSituation list = lifeSituations.get(position);
 
         holder.name.setText(list.getLifeSituationName());
-        /*holder.imageView.setImageResource(list.getIcon());*/
+        holder.imageView.setImageResource(R.drawable.u136);
 
     }
 
@@ -64,3 +61,4 @@ public class LifeSituationAdapter extends RecyclerView.Adapter<LifeSituationAdap
 
 
 }
+

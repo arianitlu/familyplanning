@@ -14,7 +14,7 @@ import java.util.List;
 
 public final class JsonUtil {
 
-    private JsonUtil(){
+    private JsonUtil() {
     }
 
     public static List<InstitutionCategory> extractInstitutionsCategory(JSONObject responseObject) throws JSONException {
@@ -23,7 +23,7 @@ public final class JsonUtil {
 
         JSONArray dataArray = responseObject.getJSONArray("data");
 
-        for(int i = 0; i < dataArray.length(); i++){
+        for (int i = 0; i < dataArray.length(); i++) {
 
             JSONObject dataObj = dataArray.getJSONObject(i);
 
@@ -34,8 +34,8 @@ public final class JsonUtil {
 //            String icon = dataObj.getString("Icon");
 //            String languageID = dataObj.getString("languageID");
 
-            InstitutionCategory objInstitution = new InstitutionCategory(id,0,categoryName,
-                    "","","");
+            InstitutionCategory objInstitution = new InstitutionCategory(id, 0, categoryName,
+                    "", "", "");
 
             institutionCategoriesList.add(objInstitution);
         }
@@ -49,7 +49,7 @@ public final class JsonUtil {
 
         JSONArray dataArray = responseObject.getJSONArray("data");
 
-        for(int i = 0; i < dataArray.length(); i++){
+        for (int i = 0; i < dataArray.length(); i++) {
 
             JSONObject dataObj = dataArray.getJSONObject(i);
 
@@ -63,7 +63,7 @@ public final class JsonUtil {
             String website = dataObj.getString("Website");
             String services = dataObj.getString("Services");
 
-            Institution institution = new Institution(id,name,description,image,logo,lat,lng,services,website);
+            Institution institution = new Institution(id, name, description, image, logo, lat, lng, services, website);
 
             institutionList.add(institution);
         }
@@ -77,7 +77,7 @@ public final class JsonUtil {
 
         JSONArray dataArray = responseObject.getJSONArray("data");
 
-        for(int i = 0; i < dataArray.length(); i++){
+        for (int i = 0; i < dataArray.length(); i++) {
 
             JSONObject dataObj = dataArray.getJSONObject(i);
 
@@ -87,7 +87,7 @@ public final class JsonUtil {
             String description = dataObj.getString("Description");
             String languageFlag = dataObj.getString("LanguageFlag");
 
-            Language language = new Language(id,languageName,languageIso,description,languageFlag);
+            Language language = new Language(id, languageName, languageIso, description, languageFlag);
 
             languagesList.add(language);
         }
@@ -95,33 +95,30 @@ public final class JsonUtil {
         return languagesList;
     }
 
-    public static List<LifeSituation> extractAllLifeSituation (JSONObject responseObject) throws JSONException {
+    public static List<LifeSituation> extractAllLifeSituation(JSONObject responseObject) throws JSONException {
 
         List<LifeSituation> lifeSituationList = new ArrayList<>();
 
         JSONArray dataArray = responseObject.getJSONArray("data");
 
-        for(int i = 0; i < dataArray.length(); i++){
+        for (int i = 0; i < dataArray.length(); i++) {
 
             JSONObject dataObj = dataArray.getJSONObject(i);
 
             int id = dataObj.getInt("ID");
-            String lifeSituationName = dataObj.getString("LanguageName");
-            String icon = dataObj.getString("Icon");
+            String lifeSituationName = dataObj.getString("LifeSituationName");
+            //String icon = dataObj.getString("Icon");
             int languageID = dataObj.getInt("LanguageID");
             int institutionCategory = dataObj.getInt("InstitutionCategory");
             int statusi = dataObj.getInt("Statusi");
 
-
-
-
-
-
-            LifeSituation lifeSituation = new LifeSituation(id,lifeSituationName,icon,languageID,institutionCategory,statusi);
+            LifeSituation lifeSituation = new LifeSituation(id, lifeSituationName, languageID, institutionCategory, statusi);
 
             lifeSituationList.add(lifeSituation);
         }
 
         return lifeSituationList;
     }
+
+
 }

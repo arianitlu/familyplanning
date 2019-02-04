@@ -3,26 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="24dp">
 
     <LinearLayout
-        android:id="@+id/imageViewLifeSituation"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="301dp"
         android:background="@drawable/u135"
         android:gravity="center_horizontal|center_vertical"
         android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/heart_1"
+            android:id="@+id/imageViewLifeSituation"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/u136" />
@@ -33,12 +29,10 @@
         android:id="@+id/textViewLifeSituation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewLifeSituation"
-        app:layout_constraintStart_toStartOf="@+id/imageViewLifeSituation"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLifeSituation" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,15 +1,21 @@
 package com.example.rinor.familyplanning.model;
 
-import android.support.v7.widget.RecyclerView;
+public class LifeSituation {
 
-public class LifeSituation   {
+    private int id;
+    private String lifeSituationName;
+    private String icon;
+    private int languageID;
+    private int institutionCategory;
+    private int statusi;
 
-  private int id;
-  private String lifeSituationName;
-  private String icon;
-  private int languageID;
-  private int institutionCategory;
-  private int statusi;
+    public LifeSituation(int id, String lifeSituationName, int languageID, int institutionCategory, int statusi) {
+        this.id = id;
+        this.lifeSituationName = lifeSituationName;
+        this.languageID = languageID;
+        this.institutionCategory = institutionCategory;
+        this.statusi = statusi;
+    }
 
     public LifeSituation(int id, String lifeSituationName, String icon, int languageID, int institutionCategory, int statusi) {
 
