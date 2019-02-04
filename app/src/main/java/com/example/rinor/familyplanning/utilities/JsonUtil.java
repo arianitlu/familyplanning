@@ -3,6 +3,7 @@ package com.example.rinor.familyplanning.utilities;
 import com.example.rinor.familyplanning.model.Institution;
 import com.example.rinor.familyplanning.model.InstitutionCategory;
 import com.example.rinor.familyplanning.model.Language;
+import com.example.rinor.familyplanning.model.LifeSituation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -92,5 +93,35 @@ public final class JsonUtil {
         }
 
         return languagesList;
+    }
+
+    public static List<LifeSituation> extractAllLifeSituation (JSONObject responseObject) throws JSONException {
+
+        List<LifeSituation> lifeSituationList = new ArrayList<>();
+
+        JSONArray dataArray = responseObject.getJSONArray("data");
+
+        for(int i = 0; i < dataArray.length(); i++){
+
+            JSONObject dataObj = dataArray.getJSONObject(i);
+
+            int id = dataObj.getInt("ID");
+            String lifeSituationName = dataObj.getString("LanguageName");
+            String icon = dataObj.getString("Icon");
+            int languageID = dataObj.getInt("LanguageID");
+            int institutionCategory = dataObj.getInt("InstitutionCategory");
+            int statusi = dataObj.getInt("Statusi");
+
+
+
+
+
+
+            LifeSituation lifeSituation = new LifeSituation(id,lifeSituationName,icon,languageID,institutionCategory,statusi);
+
+            lifeSituationList.add(lifeSituation);
+        }
+
+        return lifeSituationList;
     }
 }

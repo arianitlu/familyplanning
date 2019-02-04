@@ -13,12 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen">
-
-        </activity>
-
-        <activity android:name=".StartActivity">
-        </activity>
+        <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".StartActivity"></activity>
         <activity
             android:name=".RegisterActivity"
             android:parentActivityName=".StartActivity" />
@@ -27,10 +23,9 @@
             android:name=".LoginActivity"
             android:parentActivityName=".StartActivity" />
         <activity android:name=".MessageActivity" />
-        <activity android:name=".ResetPasswordActivity"
-            android:parentActivityName=".LoginActivity"></activity>
-
-
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:parentActivityName=".LoginActivity" />
         <activity android:name=".IntroActivity" />
         <activity android:name=".LanguageActivity">
             <intent-filter>
@@ -56,6 +51,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <activity android:name=".utilities.LifeSituationActivity"></activity>
     </application>
 
 </manifest>
