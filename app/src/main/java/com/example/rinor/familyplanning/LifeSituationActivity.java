@@ -60,10 +60,9 @@ public class LifeSituationActivity extends AppCompatActivity {
         situationRecyclerView = findViewById(R.id.lifesituationlist);
 
         sharedPreferences = getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
-
         int languageId = sharedPreferences.getInt("languageId",0);
 
-        getLifeSituationList(2);
+        getLifeSituationList(languageId);
 
     }
 

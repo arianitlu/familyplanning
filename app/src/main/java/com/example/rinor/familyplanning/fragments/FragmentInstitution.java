@@ -77,7 +77,6 @@ public class FragmentInstitution extends Fragment {
         institutionRecyclerView = view.findViewById(R.id.recyclerview_instutiton);
 
         sharedPreferences = getActivity().getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
 
         languageID = sharedPreferences.getInt("languageId",0);
         category = sharedPreferences.getInt("category",0);
@@ -92,7 +91,7 @@ public class FragmentInstitution extends Fragment {
         institutionRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), institutionRecyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        getInstitutionListById(languageID,1,position);
+                        getInstitutionListById(languageID,category,position);
                         myDialog.show();
                     }
 

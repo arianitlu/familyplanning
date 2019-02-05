@@ -55,11 +55,8 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         toolbar.setBackgroundColor(getResources().getColor(colorOfLifeSituation));
 
-
         String languageToLoad = sharedPreferences.getString("languageToLoad","EN");
-
         txt_iso_language.setText(languageToLoad.toUpperCase());
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

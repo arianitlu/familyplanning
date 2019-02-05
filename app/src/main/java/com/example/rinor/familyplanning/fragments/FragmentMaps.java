@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
 
@@ -66,7 +68,7 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-            return rootView;
+        return rootView;
     }
 
     @Override
@@ -148,6 +150,7 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
                             for (int i = 0; i < institutionList.size(); i++) {
                                 createPointMap(institutionList.get(i).getLat(), institutionList.get(i).getLng(),
                                         institutionList.get(i).getName(), colorMarkerNormal,i);
+                                Log.d("hello", String.valueOf(institutionList.size()));
 
                             }
 

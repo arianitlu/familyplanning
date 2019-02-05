@@ -66,7 +66,9 @@ public class LifeSituationAdapter extends RecyclerView.Adapter<LifeSituationAdap
             editor.putInt("colorOfLifeSituation",backgroundColors[position]);
             editor.commit();
 
-            ctx.startActivity(new Intent(ctx,HomeActivity.class));
+            Intent intent = new Intent(ctx,HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            ctx.startActivity(intent);
         }
     }
 
@@ -88,7 +90,6 @@ public class LifeSituationAdapter extends RecyclerView.Adapter<LifeSituationAdap
         holder.name.setText(list.getLifeSituationName());
         holder.imageView.setImageResource(R.mipmap.ic_launcher);
         holder.cardView.setCardBackgroundColor(bgColor);
-
 
     }
 

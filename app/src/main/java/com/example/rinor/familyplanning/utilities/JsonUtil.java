@@ -53,15 +53,15 @@ public final class JsonUtil {
 
             JSONObject dataObj = dataArray.getJSONObject(i);
 
-            int id = dataObj.getInt("ID");
-            String name = dataObj.getString("InstitutionName");
-            String description = dataObj.getString("Description");
-            String image = dataObj.getString("Photo");
-            String logo = dataObj.getString("Icon");
-            double lat = dataObj.getInt("Lat");
-            double lng = dataObj.getInt("Lng");
-            String website = dataObj.getString("Website");
-            String services = dataObj.getString("Services");
+            int id = dataObj.optInt("ID");
+            String name = dataObj.optString("InstitutionName");
+            String description = dataObj.optString("Description");
+            String image = dataObj.optString("Photo");
+            String logo = dataObj.optString("Icon");
+            double lat = dataObj.optDouble("Lat");
+            double lng = dataObj.optInt("Lng");
+            String website = dataObj.optString("Website");
+            String services = dataObj.optString("Services");
 
             Institution institution = new Institution(id, name, description, image, logo, lat, lng, services, website);
 

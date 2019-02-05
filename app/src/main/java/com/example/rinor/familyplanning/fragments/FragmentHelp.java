@@ -60,6 +60,7 @@ public class FragmentHelp extends Fragment {
 
         sharedPreferences = getActivity().getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
         int languageId = sharedPreferences.getInt("languageId",0);
         int lifeSituationId = sharedPreferences.getInt("lifeSituationId",0);
 
