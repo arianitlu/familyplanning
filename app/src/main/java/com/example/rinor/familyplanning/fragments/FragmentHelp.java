@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -52,6 +53,7 @@ public class FragmentHelp extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
         final View view = inflater.inflate(R.layout.fragment_help, container, false);
 
         recyclerView =view.findViewById(R.id.recycler_view_categories);
@@ -60,6 +62,7 @@ public class FragmentHelp extends Fragment {
         editor = sharedPreferences.edit();
         int languageId = sharedPreferences.getInt("languageId",0);
         int lifeSituationId = sharedPreferences.getInt("lifeSituationId",0);
+
 
         getInstitutionsCategory(languageId,lifeSituationId);
 

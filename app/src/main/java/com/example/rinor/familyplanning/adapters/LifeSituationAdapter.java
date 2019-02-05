@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,8 @@ public class LifeSituationAdapter extends RecyclerView.Adapter<LifeSituationAdap
     SharedPreferences sharedPreferences;
     String MY_PREF = "PREFERENCE";
     SharedPreferences.Editor editor;
+    private final int[] backgroundColors = {R.color.colorAccent, R.color.colorBluee, R.color.colorGreen,
+            R.color.colorGray, R.color.colorTransparentWhite,R.color.colorAccent, R.color.colorBluee};
 
     public LifeSituationAdapter(List<LifeSituation> lifeSituations,Context ctx) {
         this.lifeSituations = lifeSituations;
@@ -39,6 +43,7 @@ public class LifeSituationAdapter extends RecyclerView.Adapter<LifeSituationAdap
 
         public TextView name;
         public ImageView imageView;
+        public CardView cardView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -47,6 +52,7 @@ public class LifeSituationAdapter extends RecyclerView.Adapter<LifeSituationAdap
 
             name = itemView.findViewById(R.id.cardview_text);
             imageView = itemView.findViewById(R.id.card_view_image);
+            cardView = itemView.findViewById(R.id.card_view);
 
         }
 
@@ -57,6 +63,7 @@ public class LifeSituationAdapter extends RecyclerView.Adapter<LifeSituationAdap
             LifeSituation lifeSituation = lifeSituations.get(position);
 
             editor.putInt("lifeSituationId",lifeSituation.getId());
+            editor.putInt("colorOfLifeSituation",backgroundColors[position]);
             editor.commit();
 
             ctx.startActivity(new Intent(ctx,HomeActivity.class));
@@ -76,8 +83,12 @@ public class LifeSituationAdapter extends RecyclerView.Adapter<LifeSituationAdap
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         LifeSituation list = lifeSituations.get(position);
 
+        int bgColor = ContextCompat.getColor(ctx, backgroundColors[position % 7]);
+
         holder.name.setText(list.getLifeSituationName());
         holder.imageView.setImageResource(R.mipmap.ic_launcher);
+        holder.cardView.setCardBackgroundColor(bgColor);
+
 
     }
 

@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.example.rinor.familyplanning.fragments.FragmentHelp;
 import com.example.rinor.familyplanning.fragments.FragmentInstitution;
 import com.example.rinor.familyplanning.fragments.FragmentMaps;
-import com.example.rinor.familyplanning.utilities.LifeSituationActivity;
 
 import java.util.Locale;
 
@@ -44,15 +43,22 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_navigation_drawer);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         txt_iso_language = findViewById(R.id.txt_toolbar_language);
 
         sharedPreferences = getSharedPreferences(MY_PREF,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        int colorOfLifeSituation = sharedPreferences.getInt("colorOfLifeSituation",R.color.colorAccent);
+
+        getWindow().setNavigationBarColor(getResources().getColor(colorOfLifeSituation));
+        getWindow().setStatusBarColor(getResources().getColor(colorOfLifeSituation));
+        setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(colorOfLifeSituation));
+
+
         String languageToLoad = sharedPreferences.getString("languageToLoad","EN");
 
-        txt_iso_language.setText(languageToLoad);
+        txt_iso_language.setText(languageToLoad.toUpperCase());
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -163,7 +169,7 @@ public class HomeActivity extends AppCompatActivity
         editor.putString("languageToLoad",language);
         editor.commit();
 
-        txt_iso_language.setText(language);
+        txt_iso_language.setText(language.toUpperCase());
 
         Configuration config = getBaseContext().getResources().getConfiguration();
         config.locale = locale;

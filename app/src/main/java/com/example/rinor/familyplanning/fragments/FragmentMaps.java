@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
@@ -53,7 +54,6 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
     float colorMarkerGPS = BitmapDescriptorFactory.HUE_AZURE;
 
     List<Institution> institutionList = new ArrayList<>();
-
 
     private static final String FAMILY_PLANNING_BASE_URL = "http://192.168.0.169/familyplanning/readInstitutions.php";
 
@@ -77,9 +77,6 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
 
         callGpsOnTouch();
 
-        createPointMap(42.669056, 21.161231,
-                "Tophane", colorMarkerNormal);
-
     }
 
     public void callGpsOnTouch() {
@@ -96,7 +93,7 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
                 latGPS = l.getLatitude();
                 lonGPS = l.getLongitude();
 
-                createPointMap(latGPS, lonGPS, "Your location", colorMarkerGPS);
+                createPointMap(latGPS, lonGPS, "Your location", colorMarkerGPS,100);
             }
         }
 
@@ -105,7 +102,7 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
         gpsCalled = true;
     }
 
-    public void createPointMap(double latitude, double longitude, String title, float color) {
+    public void createPointMap(double latitude, double longitude, String title, float color,int id) {
 
         LatLng location = new LatLng(latitude, longitude);
 
@@ -113,13 +110,13 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
                 .target(new LatLng(latitude, longitude))
                 .zoom(14)
                 .build();
-//        mMap.animateCamera(CameraUpdateFactory
-//                .newCameraPosition(position), 4000, null);
-        mMap.addMarker(new MarkerOptions()
+
+       mMap.addMarker(new MarkerOptions()
                 .position(location)
                 .title(title)
                 .icon(BitmapDescriptorFactory.defaultMarker(color)));
-        mMap.addCircle(new CircleOptions()
+
+       mMap.addCircle(new CircleOptions()
                 .center(location)
                 .radius(100)
                 .strokeColor(Color.GREEN)
@@ -130,7 +127,7 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
 
         CameraPosition position = new CameraPosition.Builder()
                 .target(new LatLng(latitude, longitude))
-                .zoom(14)
+                .zoom(7)
                 .build();
         mMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(position), 4000, null);
@@ -150,7 +147,7 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
                             institutionList = JsonUtil.extractAllInstitutions(response);
                             for (int i = 0; i < institutionList.size(); i++) {
                                 createPointMap(institutionList.get(i).getLat(), institutionList.get(i).getLng(),
-                                        institutionList.get(i).getName(), colorMarkerNormal);
+                                        institutionList.get(i).getName(), colorMarkerNormal,i);
 
                             }
 

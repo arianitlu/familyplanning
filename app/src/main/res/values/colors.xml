@@ -6,6 +6,10 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="introbackgorund">#fc3c63</color>
     <color name="colorTransparentWhite">#000000</color>
+    <color name="colorBluee">@android:color/holo_blue_bright</color>
+    <color name="colorGreen">@android:color/holo_green_light</color>
+    <color name="colorRed">@android:color/holo_red_dark</color>
+    <color name="colorGray">@android:color/darker_gray</color>
 
 
 </resources>

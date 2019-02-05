@@ -23,6 +23,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.rinor.familyplanning.adapters.LanguageAdapter;
 import com.example.rinor.familyplanning.fragments.FragmentInstitution;
 import com.example.rinor.familyplanning.model.Language;
+import com.example.rinor.familyplanning.model.LifeSituation;
 import com.example.rinor.familyplanning.utilities.JsonUtil;
 import com.example.rinor.familyplanning.utilities.MySingleton;
 
@@ -63,7 +64,7 @@ public class LanguageActivity extends AppCompatActivity {
         languageToLoad(languageToLoad);
 
         if (sharedPreferences.getBoolean("isCalled",false)){
-            startActivity(new Intent(LanguageActivity.this,SplashScreen.class));
+            startActivity(new Intent(LanguageActivity.this,LifeSituationActivity.class));
         }else {
             recyclerView.addOnItemTouchListener(
                     new LanguageActivity.RecyclerItemClickListener(getApplicationContext(), recyclerView,
@@ -108,7 +109,7 @@ public class LanguageActivity extends AppCompatActivity {
                                             break;
                                     }
 
-                                    startActivity(new Intent(LanguageActivity.this, SplashScreen.class));
+                                    startActivity(new Intent(LanguageActivity.this, LifeSituationActivity.class));
                                 }
 
                                 @Override
