@@ -2,6 +2,7 @@ package com.example.rinor.familyplanning.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -14,7 +15,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -99,9 +102,10 @@ public class FragmentInstitution extends Fragment {
                     }
                 })
         );
-
+        
         return view;
     }
+
 
     public void getInstitutionList() {
 

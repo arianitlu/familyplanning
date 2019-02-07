@@ -57,7 +57,7 @@ public class IntroActivity extends AppCompatActivity implements PopupMenu.OnMenu
         }
 
         else if(sharedPreferences.getString("tag",null).equals("ok")) {
-            Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+            Intent i = new Intent(getApplicationContext(),LifeSituationActivity.class);
             startActivity(i);
             finish();
         }
@@ -117,7 +117,7 @@ public class IntroActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
             if (currItem == lastIdx && state == 1) {
                 lastPageChange = true;
-                Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+                Intent i = new Intent(getApplicationContext(),LifeSituationActivity.class);
                 startActivity(i);
                 finish();
             }

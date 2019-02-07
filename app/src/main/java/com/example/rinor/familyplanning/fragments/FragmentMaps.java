@@ -129,7 +129,7 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
 
         CameraPosition position = new CameraPosition.Builder()
                 .target(new LatLng(latitude, longitude))
-                .zoom(7)
+                .zoom(8)
                 .build();
         mMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(position), 4000, null);
@@ -150,8 +150,8 @@ public class FragmentMaps extends Fragment implements  OnMapReadyCallback {
                             for (int i = 0; i < institutionList.size(); i++) {
                                 createPointMap(institutionList.get(i).getLat(), institutionList.get(i).getLng(),
                                         institutionList.get(i).getName(), colorMarkerNormal,i);
-                                Log.d("hello", String.valueOf(institutionList.size()));
 
+                                Toast.makeText(getContext(), "SpitaliPrishtine lat: " + institutionList.get(0).getLat(), Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {

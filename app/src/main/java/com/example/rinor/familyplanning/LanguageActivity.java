@@ -64,7 +64,7 @@ public class LanguageActivity extends AppCompatActivity {
         languageToLoad(languageToLoad);
 
         if (sharedPreferences.getBoolean("isCalled",false)){
-            startActivity(new Intent(LanguageActivity.this,LifeSituationActivity.class));
+            startActivity(new Intent(LanguageActivity.this,IntroActivity.class));
         }else {
             recyclerView.addOnItemTouchListener(
                     new LanguageActivity.RecyclerItemClickListener(getApplicationContext(), recyclerView,
@@ -109,7 +109,7 @@ public class LanguageActivity extends AppCompatActivity {
                                             break;
                                     }
 
-                                    startActivity(new Intent(LanguageActivity.this, LifeSituationActivity.class));
+                                    startActivity(new Intent(LanguageActivity.this, IntroActivity.class));
                                 }
 
                                 @Override

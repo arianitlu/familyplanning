@@ -4,6 +4,7 @@ import com.example.rinor.familyplanning.model.Institution;
 import com.example.rinor.familyplanning.model.InstitutionCategory;
 import com.example.rinor.familyplanning.model.Language;
 import com.example.rinor.familyplanning.model.LifeSituation;
+import com.example.rinor.familyplanning.model.Topics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,7 +60,7 @@ public final class JsonUtil {
             String image = dataObj.optString("Photo");
             String logo = dataObj.optString("Icon");
             double lat = dataObj.optDouble("Lat");
-            double lng = dataObj.optInt("Lng");
+            double lng = dataObj.optDouble("Lng");
             String website = dataObj.optString("Website");
             String services = dataObj.optString("Services");
 
@@ -119,6 +120,32 @@ public final class JsonUtil {
 
         return lifeSituationList;
     }
+
+    public static List<Topics> extractAllTopics(JSONObject responseObject) throws JSONException {
+
+        List<Topics> topicsList = new ArrayList<>();
+
+        JSONArray dataArray = responseObject.getJSONArray("data");
+
+        for (int i = 0; i < dataArray.length(); i++) {
+
+            JSONObject dataObj = dataArray.getJSONObject(i);
+            int id = dataObj.optInt("ID");
+            int languageID = dataObj.optInt("LanguageID");
+            String topicName = dataObj.optString("TopicName");
+            String topicCategory = dataObj.optString("CategoryName");
+            String description = dataObj.optString("Description");
+            int userid = dataObj.optInt("UserID");
+
+            Topics topics = new Topics(id, languageID, topicName, topicCategory, description, userid);
+
+            topicsList.add(topics);
+        }
+
+        return topicsList;
+    }
+
+
 
 
 }

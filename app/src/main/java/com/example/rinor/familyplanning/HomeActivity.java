@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,6 +20,7 @@ import android.widget.Toast;
 import com.example.rinor.familyplanning.fragments.FragmentHelp;
 import com.example.rinor.familyplanning.fragments.FragmentInstitution;
 import com.example.rinor.familyplanning.fragments.FragmentMaps;
+import com.example.rinor.familyplanning.fragments.FragmentInformation;
 
 import java.util.Locale;
 
@@ -77,7 +77,9 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Intent intent = new Intent(HomeActivity.this, LifeSituationActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -102,11 +104,10 @@ public class HomeActivity extends AppCompatActivity
             toolbar.setTitle(getResources().getString(R.string.pregnancy));
 
         } else if (id == R.id.nav_info) {
-          /*  getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new FragmentInstitution()).commit();
-            toolbar.setTitle(getResources().getString(R.string.pregnancy));*/
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FragmentInformation()).commit();
+            toolbar.setTitle(getResources().getString(R.string.general_info));
 
-            startActivity(new Intent(this,LifeSituationActivity.class));
         }else if (id == R.id.nav_chat) {
             Intent i = new Intent(getApplicationContext(),StartActivity.class);
             startActivity(i);
