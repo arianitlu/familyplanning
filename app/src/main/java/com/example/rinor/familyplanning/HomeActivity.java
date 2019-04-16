@@ -42,6 +42,8 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
 
+        // fix some bugs
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         txt_iso_language = findViewById(R.id.txt_toolbar_language);
 
