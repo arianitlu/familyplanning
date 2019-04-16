@@ -64,6 +64,8 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
+        // Added some beautiful comments
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new FragmentHelp()).commit();
 
